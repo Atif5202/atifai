@@ -731,7 +731,7 @@ export function Demo() {
                       className="w-full h-full"
                     >
                       {activeTab === "stock" && (
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height={220}>
                           <AreaChart
                             data={currentData.chartData}
                             margin={{ top: 10, right: 10, left: -25, bottom: 0 }}
@@ -769,7 +769,7 @@ export function Demo() {
                       )}
 
                       {activeTab === "venta" && (
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height={220}>
                           <BarChart
                             data={currentData.chartData}
                             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
@@ -805,7 +805,7 @@ export function Demo() {
                       )}
 
                       {activeTab === "comptabilite" && (
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height={220}>
                           <AreaChart
                             data={currentData.chartData}
                             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
@@ -856,7 +856,7 @@ export function Demo() {
                       )}
 
                       {activeTab === "ia" && (
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height={220}>
                           <LineChart
                             data={currentData.chartData}
                             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
