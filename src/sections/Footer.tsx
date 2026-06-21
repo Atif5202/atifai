@@ -65,7 +65,7 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-6">
             <a href="#" onClick={handleScrollToTop} className="flex items-center gap-2 group cursor-pointer inline-flex">
               <img
-                src="https://res.cloudinary.com/dfjexysdh/image/upload/v1782008581/atif_ia_logo_xs555w.png"
+                src="/logo.png"
                 alt="ATIF AI"
                 className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
               />

@@ -85,7 +85,7 @@ export function Navbar() {
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group cursor-pointer pl-1">
             <img
-              src="https://res.cloudinary.com/dfjexysdh/image/upload/v1782008581/atif_ia_logo_xs555w.png"
+              src="/logo.png"
               alt="ATIF AI"
               className="h-9 w-auto group-hover:scale-105 transition-transform duration-300"
             />
