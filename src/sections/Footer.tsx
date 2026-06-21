@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles, Linkedin, Twitter, Github, Globe, Phone, MapPin, Mail } from "lucide-react";
+import { Linkedin, Twitter, Github, Globe, Phone, MapPin, Mail } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -64,15 +64,11 @@ export function Footer() {
           {/* Logo & Corporate block */}
           <div className="lg:col-span-2 space-y-6">
             <a href="#" onClick={handleScrollToTop} className="flex items-center gap-2 group cursor-pointer inline-flex">
-              <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 dark:bg-cyan-500 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform duration-300 animate-pulse">
-                <Sparkles className="h-5 w-5 text-white dark:text-slate-950" />
-              </div>
-              <span className="font-sans text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                ATIF AI
-              </span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 font-medium border border-blue-200/30">
-                Business
-              </span>
+              <img
+                src="https://res.cloudinary.com/dfjexysdh/image/upload/v1782008581/atif_ia_logo_xs555w.png"
+                alt="ATIF AI"
+                className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
+              />
             </a>
 
             <p className="text-xs md:text-sm font-normal leading-relaxed text-slate-500 dark:text-slate-400">

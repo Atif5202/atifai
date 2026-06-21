@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ThemeToggle } from "../components/ThemeToggle";
-import { Menu, X, Sparkles, Globe } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../hooks/useLanguage";
 
@@ -84,16 +84,11 @@ export function Navbar() {
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group cursor-pointer pl-1">
-            <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-blue-600 dark:bg-cyan-500 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform duration-300 border border-white/10">
-              <Sparkles className="h-4.5 w-4.5 text-white dark:text-slate-950" />
-              <div className="absolute inset-0 rounded-full bg-blue-500/10 dark:bg-cyan-500/10 blur-sm opacity-50 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
-            </div>
-            <span className="font-sans text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors duration-200">
-              ATIF AI
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 dark:bg-white/5 text-blue-800 dark:text-gray-300 font-semibold border border-blue-500/10 dark:border-white/10 backdrop-blur-sm">
-              {t("nav.tag")}
-            </span>
+            <img
+              src="https://res.cloudinary.com/dfjexysdh/image/upload/v1782008581/atif_ia_logo_xs555w.png"
+              alt="ATIF AI"
+              className="h-9 w-auto group-hover:scale-105 transition-transform duration-300"
+            />
           </a>
 
           {/* Desktop Navigation Links */}

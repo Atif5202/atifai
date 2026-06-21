@@ -918,7 +918,7 @@ export function Demo() {
                           : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
                       }`}
                     >
-                      Saisie Live 🚀
+                      Saisie Live
                     </button>
                     <button
                       onClick={() => setSidebarMode("feed")}
@@ -928,7 +928,7 @@ export function Demo() {
                           : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
                       }`}
                     >
-                      {activeTab === "ia" ? "Prévisions IA" : "Activité"} 📁
+                      {activeTab === "ia" ? "Prévisions IA" : "Activité"}
                     </button>
                   </div>
                 </div>

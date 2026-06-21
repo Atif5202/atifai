@@ -429,7 +429,7 @@ export const ColorPaletteSwitcher: React.FC = () => {
                       : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                   }`}
                 >
-                  Sélecteur Pro (Photoshop)
+                  Sélecteur
                 </button>
               </div>
 

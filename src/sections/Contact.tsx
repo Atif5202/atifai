@@ -156,7 +156,7 @@ export function Contact() {
                       <input
                         id="name"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="Atif Rakoto"
                         {...register("name")}
                         className={`w-full pl-10 pr-4 py-3 rounded-xl border font-sans text-sm focus:outline-none focus:ring-2 transition-all duration-300 ${
                           errors.name
@@ -184,7 +184,7 @@ export function Contact() {
                       <input
                         id="email"
                         type="text"
-                        placeholder="john@entreprise.com"
+                        placeholder="atif@entreprise.com"
                         {...register("email")}
                         className={`w-full pl-10 pr-4 py-3 rounded-xl border font-sans text-sm focus:outline-none focus:ring-2 transition-all duration-300 ${
                           errors.email

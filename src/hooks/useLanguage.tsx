@@ -23,7 +23,7 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Hero
     "hero.badge": "Propulsé par ATIF v2.4",
-    "hero.pill": "SaaS Intelligent Réinventé • Modèle 2026",
+    "hero.pill": "SaaS Intelligent • Modèle 2026",
     "hero.title1": "Gérez votre ",
     "hero.title2": "entreprise",
     "hero.title3": " avec l'intelligence artificielle",
