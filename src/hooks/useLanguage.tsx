@@ -1,0 +1,475 @@
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+type Language = "FR" | "EN";
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const TRANSLATIONS: Record<Language, Record<string, string>> = {
+  FR: {
+    // Navbar
+    "nav.features": "Fonctionnalités",
+    "nav.demo": "Démo",
+    "nav.pricing": "Tarifs",
+    "nav.faq": "FAQ",
+    "nav.login": "Connexion",
+    "nav.trial": "Essai Gratuit",
+    "nav.tag": "Business",
+
+    // Hero
+    "hero.badge": "Propulsé par ATIF v2.4",
+    "hero.pill": "SaaS Intelligent Réinventé • Modèle 2026",
+    "hero.title1": "Gérez votre ",
+    "hero.title2": "entreprise",
+    "hero.title3": " avec l'intelligence artificielle",
+    "hero.desc": "Stocks, ventes, facturation et analyses prédictives réunis dans une seule plateforme intelligente conçue pour l'ère de l'automatisation.",
+    "hero.cta_start": "Commencer maintenant",
+    "hero.cta_demo": "Voir la démo",
+    "hero.status": "Tous les systèmes opérationnels",
+    "hero.claim_no_card": "Aucune carte bancaire requise • Essai gratuit de 14 jours",
+    "hero.mockup.perf": "Performances Commerciales",
+    "hero.mockup.recomputed": "Analyses et KPI recalculés il y a 5 sec",
+    "hero.mockup.net_sales": "Ventes Nettes",
+    "hero.mockup.basket": "Panier Moyen",
+    "hero.mockup.restock": "Réapprovisionnement",
+    "hero.mockup.auto": "Automatique",
+    "hero.mockup.queries": "2 requêtes IA OK",
+    "hero.mockup.trends": "Tendances Trimestrielles (K€)",
+    "hero.mockup.months": "Mois d'avril - juin",
+    "hero.mockup.engine": "Moteur Prédictif ATIF AI",
+    "hero.mockup.recom_live": "Recommandation Live",
+    "hero.mockup.recom_text": "💡 Hausse saisonnière identifiée sur les articles \"ActiveFit Smartwatch\" de +42% le mois prochain. Réapprovisionnement automatique planifié pour éviter une rupture de stock imminente.",
+    "hero.mockup.growth_ann": "Croissance Annuelle",
+    "hero.mockup.margins": "Marges d'exploitation",
+    "hero.mockup.margin_val": "68.4% de marge",
+    
+    // Stats
+    "stats.title": "Quelques chiffres clés",
+    "stats.desc": "La confiance de milliers d'entreprises à travers le monde.",
+    "metric.companies": "Entreprises actives",
+    "metric.sales": "Ventes traitées (M)",
+    "metric.uptime": "Taux de disponibilité",
+    "metric.countries": "Pays d'implantation",
+
+    // Features
+    "features.title": "Fonctionnalités Clés",
+    "features.subtitle": "Tout ce dont vous avez besoin pour propulser votre entreprise",
+    "feature.stock.title": "Gestion de Stock",
+    "feature.stock.desc": "Suivez vos inventaires en temps réel. Analyse automatique des taux de rotation et alertes prédictives de réapprovisionnement dirigées par IA.",
+    "feature.ventes.title": "Gestion des Ventes",
+    "feature.ventes.desc": "Enregistrez vos transactions instantanément. Suivez vos pipelines commerciaux, analysez le comportement d'achat de vos clients et automatisez les relances.",
+    "feature.comptabilite.title": "Comptabilité Automatisée",
+    "feature.comptabilite.desc": "Épargnez des dizaines d'heures de saisie. Génération automatique de bilans, d'indicateurs de trésorerie et intégration directe de vos factures.",
+    "feature.rapports.title": "Rapports Avancés",
+    "feature.rapports.desc": "Visualisez votre croissance à travers des tableaux de bord interactifs. Exportez des analyses financières détaillées en un clic aux formats PDF et CSV.",
+    "feature.equipe.title": "Multi-utilisateurs",
+    "feature.equipe.desc": "Collaborez en toute sécurité. Définissez des rôles et des autorisations d'accès granulaires pour vos comptables, managers et commerciaux.",
+    "feature.ia.title": "Intelligence Artificielle",
+    "feature.ia.desc": "Anticipez l'avenir de votre business. Recommandations de prix dynamiques, détection d'anomalies financières et prévisions de vente mensuelles.",
+
+    // Why Choose Us
+    "why.title": "Pourquoi choisir ATIF AI ?",
+    "why.subtitle": "Une infrastructure de pointe conçue spécifiquement pour la croissance souveraine de votre ERP.",
+    "why.speed.title": "Rapidité Extrême",
+    "why.speed.desc": "Une interface ultra-rapide bâtie pour la performance. Temps de chargement inférieurs à 100ms grâce à l'edge computing.",
+    "why.speed.badge": "v2026.1",
+    "why.security.title": "Sécurité de Grade Bancaire",
+    "why.security.desc": "Cryptage AES-256 de bout en bout, hébergement souverain conforme RGPD et double authentification stricte.",
+    "why.security.badge": "Certifié ISO",
+    "why.resp.title": "Expérience Omnicanale",
+    "why.resp.desc": "Gerez votre empire depuis votre mobile, tablette ou moniteur de bureau avec une ergonomie intuitive d'une fluidité irréprochable.",
+    "why.ia.title": "IA Native Propriétaire",
+    "why.ia.desc": "Modèles d'intelligence artificielle entraînés spécifiquement sur des données comptables et ERP pour éliminer les hallucinations.",
+    "why.ia.badge": "Modèles custom",
+
+    // Testimonials
+    "testi.title": "Témoignages de nos partenaires",
+    "testi.subtitle": "Ce que disent les leaders qui pilotent leur croissance avec ATIF AI.",
+    "testi.alexandre.role": "Fondateur & CEO",
+    "testi.alexandre.content": "ATIF AI a radicalement transformé notre gestion logistique. Nos ruptures de stock ont chuté de 85% en moins de trois mois grâce aux algorithmes d'analyse prédictive. L'outil s'est amorti dès la première semaine.",
+    "testi.sophie.role": "Directrice Administrative et Financière",
+    "testi.sophie.content": "La corvée de la comptabilité mensuelle s'est transformée en un exercice fluide. Le rapprochement bancaire automatique par l'IA d'ATIF nous fait gagner plus de 4 jours de travail par mois. Une pépite technologique !",
+    "testi.maxime.role": "Directeur de Croissance (VP Growth)",
+    "testi.maxime.content": "Avoir à portée de main des prévisions de vente fiables pour les fêtes à venir nous a permis d'ajuster nos investissements marketing au centime près. Les rapports avancés d'ATIF AI sont les plus élégants du commerce.",
+    "testi.lea.role": "Responsable Supply Chain",
+    "testi.lea.content": "Gérer plus de 400 références produits sur plusieurs entrepôts était un enfer de tableurs Excel. Le module de stock d'ATIF centralise tout dans une interface hautement intuitive, utilisable directement sur nos téléphones.",
+    "testi.lucas.role": "Directeur des Opérations (COO)",
+    "testi.lucas.content": "La mise en place de l'outil a pris moins de 48 heures. Le point fort réside dans la gestion multi-utilisateur avec des autorisations précises qui garantissent la confidentialité des données commerciales de notre réseau.",
+    "testi.camille.role": "CFO & Trésorière",
+    "testi.camille.content": "Ce que j'apprécie par-dessus tout, c'est l'absence de jargon technique et de fioritures inutiles. L'interface respire la modernité, l'IA détecte immédiatement toute anomalie comptable, rendant nos audits d'une simplicité totale.",
+
+    // Pricing
+    "pricing.title": "Tarifs simples et transparents",
+    "pricing.subtitle": "Choisissez le plan parfait pour accompagner le développement de votre entreprise, sans frais cachés.",
+    "pricing.starter.desc": "L'essentiel pour structurer votre nouvelle activité sans frais.",
+    "pricing.starter.btn": "Commencer gratuitement",
+    "pricing.starter.period": "gratuit pour toujours",
+    "pricing.starter.f1": "1 utilisateur unique",
+    "pricing.starter.f2": "Gestion de stock simplifiée (jusqu'à 100 articles)",
+    "pricing.starter.f3": "Facturation & ventes de base",
+    "pricing.starter.f4": "Rapports mensuels de performance",
+    "pricing.starter.f5": "Support communautaire par e-mail",
+
+    "pricing.business.desc": "La formule phare plébiscitée par 85% des entreprises en forte croissance.",
+    "pricing.business.btn": "Démarrer l'essai gratuit",
+    "pricing.business.period": "par mois / sans engagement",
+    "pricing.business.f1": "Jusqu'à 5 utilisateurs inclus",
+    "pricing.business.f2": "Stock illimité sur plusieurs entrepôts",
+    "pricing.business.f3": "Prévisions de ventes par IA (1 mois à l'avance)",
+    "pricing.business.f4": "Comptabilité & export fiscal automatisés",
+    "pricing.business.f5": "Rapprochement bancaire intelligent",
+    "pricing.business.f6": "Support prioritaire 7j/7 en français",
+
+    "pricing.enterprise.desc": "Une puissance inédite pour les grandes organisations et chaînes logistiques.",
+    "pricing.enterprise.btn": "Contacter un expert",
+    "pricing.enterprise.period": "tarification adaptée à votre échelle",
+    "pricing.enterprise.f1": "Utilisateurs illimités & rôles sur mesure",
+    "pricing.enterprise.f2": "Modèles d'IA personnalisés et entraînés sur vos données",
+    "pricing.enterprise.f3": "API REST complète & webhooks en temps réel",
+    "pricing.enterprise.f4": "Intégrations ERP tierces exclusives (SAP, Sage, etc.)",
+    "pricing.enterprise.f5": "Account Manager dédié sous SLA strict",
+    "pricing.enterprise.f6": "Sécurité renforcée (SSO, SAML v2)",
+
+    // FAQ
+    "faq.title": "Questions Fréquentes",
+    "faq.subtitle": "Tout ce que vous devez savoir pour prendre les rênes d'ATIF AI.",
+    "faq.q1": "Comment fonctionne l'IA intégrée pour mon entreprise ?",
+    "faq.a1": "L'IA d'ATIF se connecte de manière transparente à votre historique de vente et d'achat. Elle analyse les cycles saisonniers, les tendances du marché mondial et vos pics d'affluence passés pour estimer précisément les besoins de stock futurs, préconiser des prix optimaux de revente, et automatiser la saisie comptable de manière intelligente et sans effort manuel.",
+    "faq.q2": "Puis-je exporter mes données et factures à tout moment ?",
+    "faq.a2": "Absolument. Vos données vous appartiennent pleinement. Vous pouvez exporter l'intégralité de vos bases clients, historique d'inventaire, métriques de vente, ainsi que vos journaux comptables aux formats standards standardisés (Excel, CSV, PDF, FEC comptable agréé par le fisc) d'un seul clic depuis votre console de gestion.",
+    "faq.q3": "Quelle est la sécurité réservée aux transactions de l'application ?",
+    "faq.a3": "La sécurité est au cœur d'ATIF AI. Notre infrastructure utilise le même chiffrement AES 256 bits et TLS 1.3 que les institutions bancaires mondiales réputées. De plus, nos serveurs situés en Europe respectent rigoureusement les réglementations RGPD locales. Nous réalisons également des audits de vulnérabilité complets à intervalle régulier.",
+    "faq.q4": "Est-ce qu'ATIF AI fonctionne hors ligne ?",
+    "faq.a4": "Oui. En cas de coupure réseau inopinée sur votre smartphone ou tablette, le système sauvegarde localement toutes les transactions courantes de vente et mises à jour de stock dans une base sécurisée locale. Dès que votre connexion Internet est rétablie, vos données se synchronisent de façon transparente avec le cloud sans créer le moindre doublon.",
+    "faq.q5": "Puis-je ajouter plusieurs utilisateurs et diviser les tâches ?",
+    "faq.a5": "Tout à fait. Les plans Business et Enterprise vous permettent d'inviter vos collaborateurs et de leur assigner des rôles distincts. Par exemple, donnez un accès restreint au module de stock pour vos préparateurs de commandes, donnez les accès financiers uniquement à votre expert-comptable, et conservez le pilotage global pour l'équipe de direction.",
+    "faq.cta_title": "Vous avez d'autres questions spécifiques ?",
+    "faq.cta_desc": "Notre équipe d'ingénieurs support est là pour vous répondre.",
+    "faq.cta_btn": "Parler à un expert",
+
+    // Contact
+    "contact.title": "Contactez notre équipe d'experts",
+    "contact.subtitle": "Prêt à transformer vos opérations avec notre IA ? Envoyez-nous un message et un conseiller vous contactera sous 2 heures.",
+    "contact.val1": "Souveraineté des données (France)",
+    "contact.val2": "Support technique expert disponible 7j/7",
+    "contact.val3": "Déploiement initial gratuit",
+    "contact.form.title": "Demander une démonstration privée",
+    "contact.form.name": "Nom complet ou Entreprise",
+    "contact.form.email": "Adresse de messagerie professionnelle",
+    "contact.form.company": "Nom de l'entreprise / Entité professionnelle",
+    "contact.form.msg": "Expliquez brièvement vos besoins techniques",
+    "contact.form.btn": "Envoyer ma demande de contact",
+    "contact.form.success": "Votre message a été envoyé avec succès ! Un expert ATIF AI vous contactera sous 2 heures.",
+
+    // Footer
+    "footer.desc": "L'ERP intelligent de nouvelle génération pour piloter l'ensemble de votre trésorerie, vos stocks, vos catalogues et vos points de vente en temps réel de manière souveraine.",
+    "footer.col1": "Produit",
+    "footer.col2": "Entreprise",
+    "footer.col3": "Ressources",
+    "footer.col4": "Légal",
+    "footer.link.stock": "Gestion de Stock",
+    "footer.link.sales": "Gestion des Ventes",
+    "footer.link.accounting": "Comptabilité",
+    "footer.link.ai": "Intelligence Artificielle",
+    "footer.link.plans": "Tarifs et plans",
+    "footer.link.about": "À propos d'ATIF",
+    "footer.link.why": "Pourquoi nous",
+    "footer.link.demo": "Démo interactive",
+    "footer.link.testimonials": "Témoignages clients",
+    "footer.link.jobs": "Recrutement",
+    "footer.link.api": "Documentation API",
+    "footer.link.blog": "Blog technologie",
+    "footer.link.support": "FAQ de support",
+    "footer.link.status": "État des services",
+    "footer.link.contact": "Contactez-nous",
+    "footer.link.terms": "Conditions de Service",
+    "footer.link.gdpr": "Politique RGPD",
+    "footer.link.cookies": "Sécurité & Cookies",
+    "footer.link.legal": "Mentions Légales",
+    "footer.rights": "Tous droits réservés.",
+    "footer.hosted": "Hébergé en France (ISO 27001) • Conforme RGPD Européen",
+    "footer.lang": "France (Français)",
+
+    // Interactive Demo
+    "demo.title": "Démonstration Interactive",
+    "demo.subtitle": "Explorez l'ERP intelligent d'ATIF en temps réel avec des données simulées de haute fidélité comptable.",
+    "demo.tab_stock": "Gestion de Stock",
+    "demo.tab_sales": "Gestion des Ventes",
+    "demo.tab_accounting": "Comptabilité",
+    "demo.tab_ai": "Stratégie IA",
+    "demo.label_stock_title": "Tableau d'inventaire instantané",
+    "demo.label_stock_subtitle": "Aperçu en temps réel de votre stock logistique",
+    "demo.label_sales_title": "Suivi des ventes et transactions",
+    "demo.label_sales_subtitle": "Rapport commercial interactif et volume d'affaires",
+    "demo.label_accounting_title": "Compte de résultat & Trésorerie",
+    "demo.label_accounting_subtitle": "Optimisez vos flux financiers de manière transparente",
+    "demo.label_ai_title": "Console de prédiction d'intelligence artificielle",
+    "demo.label_ai_subtitle": "Optimiseur d'indicateurs de performance et prévisions logistiques",
+    "demo.m_v_total": "Valeur totale",
+    "demo.m_v_items": "Références actives",
+    "demo.m_v_alerts": "Alertes de rupture",
+    "demo.m_v_sales": "Chiffre d'Affaires",
+    "demo.m_v_avg": "Panier moyen",
+    "demo.m_v_conv": "Conversion lead",
+    "demo.m_v_cash": "Trésorerie disponible",
+    "demo.m_v_vat": "TVA à reverser estimée",
+    "demo.m_v_margin": "Marge brute moyenne",
+    "demo.m_v_precision": "Précision prédictive",
+    "demo.m_v_recom": "Recommandations d'achats",
+    "demo.m_v_saved": "Économie estimée"
+  },
+  EN: {
+    // Navbar
+    "nav.features": "Features",
+    "nav.demo": "Demo",
+    "nav.pricing": "Pricing",
+    "nav.faq": "FAQ",
+    "nav.login": "Log In",
+    "nav.trial": "Free Trial",
+    "nav.tag": "Business",
+
+    // Hero
+    "hero.badge": "Powered by ATIF v2.4",
+    "hero.pill": "SaaS Reinvented • 2026 Edition",
+    "hero.title1": "Manage your ",
+    "hero.title2": "business",
+    "hero.title3": " with artificial intelligence",
+    "hero.desc": "Inventory, sales, billing, and predictive insights, unified into a single intelligent platform made for the automation era.",
+    "hero.cta_start": "Get Started Now",
+    "hero.cta_demo": "Watch Demo",
+    "hero.status": "All systems operational",
+    "hero.claim_no_card": "No credit card required • 14-day free trial",
+    "hero.mockup.perf": "Commercial Performance",
+    "hero.mockup.recomputed": "Analytics & KPIs updated 5s ago",
+    "hero.mockup.net_sales": "Net Sales",
+    "hero.mockup.basket": "Average Basket",
+    "hero.mockup.restock": "Restocking",
+    "hero.mockup.auto": "Automatic",
+    "hero.mockup.queries": "2 AI queries OK",
+    "hero.mockup.trends": "Quarterly Trends (K$)",
+    "hero.mockup.months": "Apr - Jun",
+    "hero.mockup.engine": "ATIF AI Predictive Engine",
+    "hero.mockup.recom_live": "Live Recommendation",
+    "hero.mockup.recom_text": "💡 Seasonal increase detected on \"ActiveFit Smartwatch\" articles of +42% next month. Automatic restocking scheduled to avoid an imminent stockout.",
+    "hero.mockup.growth_ann": "Annual Growth",
+    "hero.mockup.margins": "Operating Margins",
+    "hero.mockup.margin_val": "68.4% margin",
+
+    // Stats
+    "stats.title": "Key Statistics",
+    "stats.desc": "Trusted by thousands of high-growth companies worldwide.",
+    "metric.companies": "Active Businesses",
+    "metric.sales": "Processed Sales (M)",
+    "metric.uptime": "Services Uptime",
+    "metric.countries": "Global Locations",
+
+    // Features
+    "features.title": "Key Features",
+    "features.subtitle": "Everything you need to scale your company",
+    "feature.stock.title": "Inventory Management",
+    "feature.stock.desc": "Track inventory levels in real-time. Automated turnover analysis and AI-driven predictive restock alerts.",
+    "feature.ventes.title": "Sales Management",
+    "feature.ventes.desc": "Record transactions instantly. Track your pipelines, analyze customer behavior, and automate follow-ups.",
+    "feature.comptabilite.title": "Automated Bookkeeping",
+    "feature.comptabilite.desc": "Save hours of dry manual entries. Automatic balance sheet, cashflow forecasting, and automated invoicing.",
+    "feature.rapports.title": "Advanced Insights",
+    "feature.rapports.desc": "Visualize your growth with interactive dashboards. Export clean financial files in PDF & CSV with a single click.",
+    "feature.equipe.title": "Multi-User Roles",
+    "feature.equipe.desc": "Collaborate securely. Define granular visual roles and workspace permissions for accountants, managers, and sales reps.",
+    "feature.ia.title": "AI Analytics Engine",
+    "feature.ia.desc": "Predict the future of your company. Dynamic pricing recommendation, anomaly alerts, and monthly sales forecasting.",
+
+    // Why Choose Us
+    "why.title": "Why Choose ATIF AI?",
+    "why.subtitle": "A state-of-the-art sovereign infrastructure engineered precisely for secure ERP growth.",
+    "why.speed.title": "Blazing Performance",
+    "why.speed.desc": "An ultra-fast client-side engine. Pages load in under 100ms globally powered by Edge Computing networks.",
+    "why.speed.badge": "v2026.1",
+    "why.security.title": "Bank-Grade Encryption",
+    "why.security.desc": "End-to-end AES-256 standard, GDPR sovereign cloud instances, and strict prompt security guardrails.",
+    "why.security.badge": "ISO Certified",
+    "why.resp.title": "Omnichannel Experience",
+    "why.resp.desc": "Control your entire empire from mobile, tablet, or desktop systems via fluid layouts designed for touch and clicks.",
+    "why.ia.title": "Inhouse Custom AI",
+    "why.ia.desc": "Custom mathematical intelligence models trained strictly on business ERP, inventory, and bookkeeping inputs.",
+    "why.ia.badge": "Custom Models",
+
+    // Testimonials
+    "testi.title": "Partner Testimonials",
+    "testi.subtitle": "What business creators driving growth with ATIF AI are saying.",
+    "testi.alexandre.role": "Founder & CEO",
+    "testi.alexandre.content": "ATIF AI completely restructured our logistics pipeline. Our inventory outages crashed by 85% in under 90 days with predictive metrics. The setup broke-even in the first week.",
+    "testi.sophie.role": "Chief Financial Officer",
+    "testi.sophie.content": "The tedious chore of monthly accounting became a delightfully smooth flow. Automation of bank reconciliation saves us 4 full days every single month. An absolute masterpiece!",
+    "testi.maxime.role": "VP Growth",
+    "testi.maxime.content": "Having reliable predictive statistics for retail season demand changed everything for our ad budget. ATIF's modular reporting engines are the cleanest in the industry.",
+    "testi.lea.role": "Head of Supply Chain",
+    "testi.lea.content": "Managing 400+ beauty SKUs across multiple cold warehouses was spreadsheet hell. ATIF centralized everything within a tactile, responsive UI our warehouse operators love.",
+    "testi.lucas.role": "Director of Operations (COO)",
+    "testi.lucas.content": "Setting up the full suite took less than 48 hours. The killer feature is the permission matrix which strictly protects payroll, client lists, and pricing sheets.",
+    "testi.camille.role": "Corporate Treasurer",
+    "testi.camille.content": "What I absolute love about ATIF is the lack of unneeded administrative clutter. The UI is calm, clean, elegant, and the AI tracks double-entry anomalies automatically.",
+
+    // Pricing
+    "pricing.title": "Simple, Transparent Pricing",
+    "pricing.subtitle": "Choose the optimal plan to scale your operations, with zero hidden surprises.",
+    "pricing.starter.desc": "Core toolset to structure your early startup operations without spending a cent.",
+    "pricing.starter.btn": "Start Free Forever",
+    "pricing.starter.period": "free forever",
+    "pricing.starter.f1": "1 dedicated user seat",
+    "pricing.starter.f2": "Basic stock tracking (up to 100 active SKUs)",
+    "pricing.starter.f3": "Core invoicing & billing controls",
+    "pricing.starter.f4": "Monthly basic KPI breakdown report",
+    "pricing.starter.f5": "Support via community channels",
+
+    "pricing.business.desc": "Our most popular package suited for high-growth modern businesses.",
+    "pricing.business.btn": "Start 14-Day Free Trial",
+    "pricing.business.period": "per month / cancel anytime",
+    "pricing.business.f1": "Up to 5 active user roles",
+    "pricing.business.f2": "Unlimited multi-warehouse inventories",
+    "pricing.business.f3": "Predictive AI supply forecasting (1 month out)",
+    "pricing.business.f4": "Automated ledger export & tax tooling",
+    "pricing.business.f5": "Smart instant bank reconciliation",
+    "pricing.business.f6": "Priority 24/7 client support specialist",
+
+    "pricing.enterprise.desc": "Unprecedented sovereign volume computing for vast distributors.",
+    "pricing.enterprise.btn": "Speak with an Expert",
+    "pricing.enterprise.period": "scale-aligned custom tier pricing",
+    "pricing.enterprise.f1": "Unlimited workspace roles & customized parameters",
+    "pricing.enterprise.f2": "Custom algorithms trained privately on your supply logs",
+    "pricing.enterprise.f3": "Full open REST API access & lightning fast webhooks",
+    "pricing.enterprise.f4": "Integrations with legacy platforms (SAP, Sage, Oracle)",
+    "pricing.enterprise.f5": "Dedicated Account Architect with strict uptime SLA",
+    "pricing.enterprise.f6": "Industrial SSO/SAML v2 directory mapping",
+
+    // FAQ
+    "faq.title": "Frequently Asked Questions",
+    "faq.subtitle": "Everything you need to successfully navigate and take command of ATIF AI.",
+    "faq.q1": "How does the built-in AI help my daily business operations?",
+    "faq.a1": "ATIF's proprietary algorithms connect directly to your ledger and sales. It extracts seasonal variations, global volume trends, and micro-purchases to recommend stocking quantities, automate bookkeeping imports, and optimize prices without manual administrative work.",
+    "faq.q2": "Can I export my transactions, invoices, and logs anytime?",
+    "faq.a2": "Absolutely. You fully own your information. Download complete databases of client contacts, warehouse values, and legal audit trials in standard formats (Excel, CSV, PDF) with a single, immediate export click.",
+    "faq.q3": "How secure is my company and client data in your browser app?",
+    "faq.a3": "Security is the design directive of ATIF AI. We secure connections with advanced AES-256 standard and strict TLS 1.3 encryption. Your logs are hosted within sovereign GDPR-compliant datacenters and audited regularly.",
+    "faq.q4": "Can ATIF AI function if the local network disconnects?",
+    "faq.a4": "Yes. If local internet fails, ATIF records all retail transactions, card sales, and stocks within a secure SQLite-powered browser database. Everything updates smoothly to the clouds without friction once connection returns.",
+    "faq.q5": "Can I add different employees with separate visualization filters?",
+    "faq.a5": "Yes. Our Business and Enterprise licenses provide a full permission matrix. Assign warehouse workers stock-only visualizers, while keeping ledgers, revenue numbers, and executive predictions safe for board-members.",
+    "faq.cta_title": "Seeking answers to customized workflows?",
+    "faq.cta_desc": "Our platform engineers and ERP specialists are ready to answer your questions.",
+    "faq.cta_btn": "Talk to an Expert",
+
+    // Contact
+    "contact.title": "Contact Our Advisory Team",
+    "contact.subtitle": "Ready to revolutionize your business with advanced AI? Send us a prompt and a specialist will reply within 2 hours.",
+    "contact.val1": "Full data sovereignty (GDPR ready)",
+    "contact.val2": "Dedicated engineer-led support 24/7",
+    "contact.val3": "Complimentary initial migration",
+    "contact.form.title": "Request a Private Tour",
+    "contact.form.name": "Full Name or Organization",
+    "contact.form.email": "Professional Email Address",
+    "contact.form.company": "Corporate / Enterprise Entity Name",
+    "contact.form.msg": "Briefly describe your operational bottlenecks",
+    "contact.form.btn": "Send Request",
+    "contact.form.success": "Your request has been successfully processed! An ATIF AI expert will contact you within 2 hours.",
+
+    // Footer
+    "footer.desc": "The next-generation smart ERP to run your cash flow, inventories, catalogs and points of sale in real time.",
+    "footer.col1": "Product",
+    "footer.col2": "Company",
+    "footer.col3": "Resources",
+    "footer.col4": "Legal",
+    "footer.link.stock": "Inventory",
+    "footer.link.sales": "Sales Pipeline",
+    "footer.link.accounting": "Bookkeeping",
+    "footer.link.ai": "Artificial Intelligence",
+    "footer.link.plans": "Plans & Tiers",
+    "footer.link.about": "About ATIF",
+    "footer.link.why": "Why Choose Us",
+    "footer.link.demo": "Interactive Sandbox",
+    "footer.link.testimonials": "Case Studies",
+    "footer.link.jobs": "Careers",
+    "footer.link.api": "API Documentation",
+    "footer.link.blog": "Engineering Blog",
+    "footer.link.support": "Support Portal",
+    "footer.link.status": "Platform Status",
+    "footer.link.contact": "Get in touch",
+    "footer.link.terms": "Terms of Service",
+    "footer.link.gdpr": "GDPR Compliance",
+    "footer.link.cookies": "Cookie Policy",
+    "footer.link.legal": "Corporate Imprint",
+    "footer.rights": "All rights reserved.",
+    "footer.hosted": "ISO 27001 Certified Cloud • Fully GDPR Compliant",
+    "footer.lang": "English (US)",
+
+    // Interactive Demo
+    "demo.title": "Interactive Demo",
+    "demo.subtitle": "Explore ATIF's intelligent ERP in real time with high-fidelity simulated enterprise data.",
+    "demo.tab_stock": "Stock Management",
+    "demo.tab_sales": "Sales Tracking",
+    "demo.tab_accounting": "Bookkeeping",
+    "demo.tab_ai": "AI Workspace",
+    "demo.label_stock_title": "Real-time Stock Dashboard",
+    "demo.label_stock_subtitle": "Instant overview of multi-warehouse logistics",
+    "demo.label_sales_title": "Interactive Sales Pipeline",
+    "demo.label_sales_subtitle": "Live tracking of orders and conversion values",
+    "demo.label_accounting_title": "Profit Ledger & Balance Sheet",
+    "demo.label_accounting_subtitle": "Optimize your visual cashflow transparently",
+    "demo.label_ai_title": "Predictive AI Action Hub",
+    "demo.label_ai_subtitle": "Deep forecast analytics and prompt strategy center",
+    "demo.m_v_total": "Total Stock Value",
+    "demo.m_v_items": "Active References",
+    "demo.m_v_alerts": "Stock Alerts",
+    "demo.m_v_sales": "Gross Revenue",
+    "demo.m_v_avg": "Basket Value",
+    "demo.m_v_conv": "Conversion Rate",
+    "demo.m_v_cash": "Cash-on-Hand",
+    "demo.m_v_vat": "Expected Taxes",
+    "demo.m_v_margin": "Net Margin",
+    "demo.m_v_precision": "Prediction Accuracy",
+    "demo.m_v_recom": "Restock Actions",
+    "demo.m_v_saved": "Estimated Benefit"
+  }
+};
+
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [language, setLanguageState] = useState<Language>(() => {
+    const saved = localStorage.getItem("atif_lang");
+    return (saved as Language) || "FR";
+  });
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem("atif_lang", lang);
+  };
+
+  const t = (key: string): string => {
+    const translation = TRANSLATIONS[language][key];
+    if (translation) return translation;
+    
+    // Fallback translation
+    const fallback = TRANSLATIONS["FR"][key];
+    if (fallback) return fallback;
+    
+    return key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
+};

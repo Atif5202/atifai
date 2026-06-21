@@ -1,0 +1,6 @@
+{
+  "name": "ATIF AI Business",
+  "description": "Plateforme SaaS premium d'intelligence artificielle pour gérer stocks, ventes, facturation et analyses prédictives.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
