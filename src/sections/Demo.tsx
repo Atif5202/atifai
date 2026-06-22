@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { demoDashboardData } from "../data/mockData";
 import { DashboardTab } from "../types";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../hooks/useLanguage";
 import { 
   ResponsiveContainer,
   AreaChart,
@@ -54,6 +55,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export function Demo() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<DashboardTab>("stock");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [dashboardData, setDashboardData] = useState(() => {
@@ -125,11 +127,14 @@ export function Demo() {
   // Live client-side submission states for 'ia'
   const [iaPrompt, setIaPrompt] = useState("");
 
+  const tabKeyMap: Record<string, string> = { stock: "demo.tab_stock", venta: "demo.tab_sales", comptabilite: "demo.tab_accounting", ia: "demo.tab_ai" };
+  const labelKeyMap: Record<string, string> = { stock: "stock", venta: "sales", comptabilite: "accounting", ia: "ai" };
+  const statKeyMap: Record<string, string[]> = { stock: ["demo.m_v_total", "demo.m_v_items", "demo.m_v_alerts"], venta: ["demo.m_v_sales", "demo.m_v_avg", "demo.m_v_conv"], comptabilite: ["demo.m_v_cash", "demo.m_v_vat", "demo.m_v_margin"], ia: ["demo.m_v_precision", "demo.m_v_recom", "demo.m_v_saved"] };
   const tabsList = [
-    { id: "stock" as DashboardTab, name: "Gestion de Stock", icon: Boxes, color: "text-blue-500", activeBg: "bg-blue-500/10" },
-    { id: "venta" as DashboardTab, name: "Suivi des Ventes", icon: TrendingUp, color: "text-indigo-500", activeBg: "bg-indigo-500/10" },
-    { id: "comptabilite" as DashboardTab, name: "Comptabilité", icon: Receipt, color: "text-emerald-500", activeBg: "bg-emerald-500/10" },
-    { id: "ia" as DashboardTab, name: "Intelligence Artificielle", icon: Sparkles, color: "text-cyan-500", activeBg: "bg-cyan-500/10" }
+    { id: "stock" as DashboardTab, name: t("demo.tab_stock"), icon: Boxes, color: "text-blue-500", activeBg: "bg-blue-500/10" },
+    { id: "venta" as DashboardTab, name: t("demo.tab_sales"), icon: TrendingUp, color: "text-indigo-500", activeBg: "bg-indigo-500/10" },
+    { id: "comptabilite" as DashboardTab, name: t("demo.tab_accounting"), icon: Receipt, color: "text-emerald-500", activeBg: "bg-emerald-500/10" },
+    { id: "ia" as DashboardTab, name: t("demo.tab_ai"), icon: Sparkles, color: "text-cyan-500", activeBg: "bg-cyan-500/10" }
   ];
 
   const showToast = (message: string) => {
@@ -600,15 +605,15 @@ export function Demo() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-indigo-700 dark:text-cyan-300 bg-indigo-50 dark:bg-indigo-900/40 border border-indigo-200/30 mb-4">
-            <span>Démonstration Live</span>
+            <span>{t("demo.title")}</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-sans leading-tight tracking-tight text-slate-900 dark:text-white">
-            Prenez les commandes de votre futur outil
+            {t("demo.subtitle")}
           </h2>
           
           <p className="mt-4 text-base md:text-lg text-slate-600 dark:text-slate-400">
-            Cliquez sur les différents modules ci-dessous pour explorer la puissance de notre interface et voir comment l'intelligence artificielle structure vos données business.
+            {t("demo.desc")}
           </p>
         </div>
 
@@ -645,11 +650,11 @@ export function Demo() {
                 Module ACTIF
               </span>
               <h3 className="text-xl font-bold dark:text-white flex items-center gap-2">
-                {currentData.title}
+                {t(`demo.label_${labelKeyMap[activeTab]}_title`)}
                 {isRefreshing && <RefreshCw className="h-4.5 w-4.5 text-blue-500 animate-spin" />}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                {currentData.subtitle}
+                {t(`demo.label_${labelKeyMap[activeTab]}_subtitle`)}
               </p>
             </div>
             
@@ -682,7 +687,7 @@ export function Demo() {
                     key={stat.id} 
                     className="p-4 rounded-xl border border-black/5 dark:border-white/5 bg-white/20 dark:bg-white/5 relative overflow-hidden backdrop-blur-sm"
                   >
-                    <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">{stat.label}</div>
+                    <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">{t(statKeyMap[activeTab][currentData.stats.indexOf(stat)])}</div>
                     <div className="text-2xl font-black mt-1 dark:text-white transition-all duration-300">
                       {stat.value}
                     </div>
@@ -756,7 +761,7 @@ export function Demo() {
                             />
                             <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(148, 163, 184, 0.1)', strokeWidth: 1 }} />
                             <Area 
-                              name="Niveau de Stock" 
+                              name={t("demo.chart.stock")} 
                               type="monotone" 
                               dataKey="stockLevel" 
                               stroke="var(--primary-600, #2563eb)" 
@@ -794,7 +799,7 @@ export function Demo() {
                             />
                             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(148, 163, 184, 0.04)' }} />
                             <Bar 
-                              name="Ventes Mensuelles" 
+                              name={t("demo.chart.sales")} 
                               dataKey="sales" 
                               fill="url(#colorVentes)" 
                               radius={[6, 6, 0, 0]} 
@@ -834,7 +839,7 @@ export function Demo() {
                             />
                             <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(148, 163, 184, 0.1)', strokeWidth: 1 }} />
                             <Area 
-                              name="Revenus" 
+                              name={t("demo.chart.revenue")} 
                               type="monotone" 
                               dataKey="revenue" 
                               stroke="#10b981" 
@@ -843,7 +848,7 @@ export function Demo() {
                               fill="url(#colorRevenue)" 
                             />
                             <Area 
-                              name="Dépenses" 
+                              name={t("demo.chart.expenses")} 
                               type="monotone" 
                               dataKey="expenses" 
                               stroke="#f43f5e" 
@@ -875,7 +880,7 @@ export function Demo() {
                             />
                             <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(148, 163, 184, 0.1)', strokeWidth: 1 }} />
                             <Line 
-                              name="Historique Réel" 
+                              name={t("demo.chart.history")} 
                               type="monotone" 
                               dataKey="historique" 
                               stroke="var(--primary-600, #2563eb)" 
@@ -885,7 +890,7 @@ export function Demo() {
                               connectNulls
                             />
                             <Line 
-                              name="Projection IA" 
+                              name={t("demo.chart.projection")} 
                               type="monotone" 
                               dataKey="projection" 
                               stroke="var(--accent-500, #06b6d4)" 

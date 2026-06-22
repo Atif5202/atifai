@@ -2,8 +2,10 @@ import React from "react";
 import { pricingPlans } from "../data/mockData";
 import { Check, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
+import { useLanguage } from "../hooks/useLanguage";
 
 export function Pricing() {
+  const { t } = useLanguage();
   const handleScrollToContact = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const contactSection = document.querySelector("#contact");
@@ -29,15 +31,15 @@ export function Pricing() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-700 dark:text-cyan-300 bg-blue-50 dark:bg-blue-900/40 border border-blue-200/30 mb-4">
-            <span>Tarifs Simples & Transparents</span>
+            <span>{t("pricing.title")}</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-sans leading-tight tracking-tight text-slate-900 dark:text-white">
-            Un investissement rentable dès le premier jour
+            {t("pricing.subtitle")}
           </h2>
           
           <p className="mt-4 text-base md:text-lg text-slate-600 dark:text-slate-400">
-            Choisissez la formule qui convient le mieux à la dimension de votre activité. Nos abonnements sont sans engagement de durée.
+            {t("pricing.desc")}
           </p>
         </div>
 
@@ -61,7 +63,7 @@ export function Pricing() {
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 text-[10px] font-black uppercase tracking-wider py-1.5 px-4 rounded-full shadow-md flex items-center gap-1 animate-pulse">
                   <Sparkles className="h-3.5 w-3.5" />
-                  <span>Recommandé</span>
+                  <span>{t("pricing.recommended")}</span>
                 </div>
               )}
 
@@ -72,7 +74,7 @@ export function Pricing() {
                     {plan.name}
                   </h3>
                   <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 font-normal">
-                    {plan.description}
+                    {t(`pricing.${plan.id}.desc`)}
                   </p>
                 </div>
 
@@ -93,14 +95,14 @@ export function Pricing() {
                     </span>
                   )}
                   <span className="text-xs text-slate-400 dark:text-slate-500 ml-2 font-sans font-medium uppercase tracking-wider">
-                    / {plan.period}
+                    / {t(`pricing.${plan.id}.period`)}
                   </span>
                 </div>
 
                 {/* Features Checklist */}
                 <div className="space-y-4 mb-8">
                   <div className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
-                    Services inclus :
+                    {t("pricing.includes")}
                   </div>
                   <ul className="space-y-3.5">
                     {plan.features.map((feature, fIdx) => (
@@ -108,7 +110,7 @@ export function Pricing() {
                         <div className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-cyan-400 shrink-0 mt-0.5">
                           <Check className="h-3.5 w-3.5 stroke-[3.5]" />
                         </div>
-                        <span className="font-normal leading-normal">{feature}</span>
+                        <span className="font-normal leading-normal">{t(`pricing.${plan.id}.f${fIdx + 1}`)}</span>
                       </li>
                     ))}
                   </ul>
@@ -124,7 +126,7 @@ export function Pricing() {
                     : "bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 hover:-translate-y-0.5"
                 }`}
               >
-                {plan.buttonText}
+                {t(`pricing.${plan.id}.btn`)}
               </button>
             </motion.div>
           ))}
@@ -132,7 +134,7 @@ export function Pricing() {
 
         {/* Free trial footer notice info */}
         <div className="text-center mt-12 text-xs text-slate-400 dark:text-slate-500">
-          * Les prix indiqués s'entendent hors taxes. TVA de 20% applicable en vigueur. Support de migration depuis Excel gratuit.
+          {t("pricing.footer")}
         </div>
 
       </div>

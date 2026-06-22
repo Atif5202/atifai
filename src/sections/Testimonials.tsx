@@ -2,8 +2,19 @@ import { useState, useEffect, useRef } from "react";
 import { testimonialsData } from "../data/mockData";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../hooks/useLanguage";
 
 export function Testimonials() {
+  const { t } = useLanguage();
+
+  const testiKeyMap: Record<string, string> = {
+    "1": "alexandre",
+    "2": "sophie",
+    "3": "maxime",
+    "4": "lea",
+    "5": "lucas",
+    "6": "camille"
+  };
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 for left, 1 for right
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -69,15 +80,15 @@ export function Testimonials() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-700 dark:text-cyan-300 bg-blue-50 dark:bg-blue-900/40 border border-blue-200/30 mb-4">
-            <span>Témoignages Clients</span>
+            <span>{t("testi.title")}</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-sans leading-tight tracking-tight text-slate-900 dark:text-white">
-            Ils propulsent leur croissance avec nous
+            {t("testi.subtitle")}
           </h2>
           
           <p className="mt-4 text-base md:text-lg text-slate-600 dark:text-slate-400">
-            Découvrez les retours d'expérience et témoignages d'entreprises, de directeurs financiers et de logisticiens partenaires d'ATIF AI.
+            {t("testi.desc")}
           </p>
         </div>
 
@@ -115,7 +126,7 @@ export function Testimonials() {
                     exit="exit"
                     className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-slate-600 dark:text-slate-200 italic"
                   >
-                    "{testimonialsData[currentIndex].content}"
+                    "{testiKeyMap[testimonialsData[currentIndex].id] ? t(`testi.${testiKeyMap[testimonialsData[currentIndex].id]}.content`) : testimonialsData[currentIndex].content}"
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -144,7 +155,7 @@ export function Testimonials() {
                       {testimonialsData[currentIndex].name}
                     </h4>
                     <p className="text-xs text-slate-400 font-medium mt-0.5">
-                      {testimonialsData[currentIndex].role} — <span className="text-blue-600 dark:text-cyan-400 font-bold">{testimonialsData[currentIndex].company}</span>
+                      {testiKeyMap[testimonialsData[currentIndex].id] ? t(`testi.${testiKeyMap[testimonialsData[currentIndex].id]}.role`) : testimonialsData[currentIndex].role} — <span className="text-blue-600 dark:text-cyan-400 font-bold">{testimonialsData[currentIndex].company}</span>
                     </p>
                   </div>
                 </motion.div>
@@ -155,14 +166,14 @@ export function Testimonials() {
                 <button
                   onClick={slidePrev}
                   className="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-950 cursor-pointer"
-                  aria-label="Témoignage précédent"
+                  aria-label={t("testi.prev")}
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
                 <button
                   onClick={slideNext}
                   className="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-950 cursor-pointer"
-                  aria-label="Témoignage suivant"
+                  aria-label={t("testi.next")}
                 >
                   <ChevronRight className="h-5 w-5" />
                 </button>

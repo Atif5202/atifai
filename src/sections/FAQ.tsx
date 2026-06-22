@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { faqData } from "../data/mockData";
 import { ChevronDown, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../hooks/useLanguage";
 
 function FaqItemRow({ question, answer, isOpen, onToggle }: { question: string; answer: string; isOpen: boolean; onToggle: () => void; key?: string }) {
   return (
@@ -36,6 +37,7 @@ function FaqItemRow({ question, answer, isOpen, onToggle }: { question: string; 
 }
 
 export function FAQ() {
+  const { t } = useLanguage();
   const [openId, setOpenId] = useState<string | null>("faq-1");
 
   const handleToggle = (id: string) => {
@@ -52,25 +54,25 @@ export function FAQ() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-700 dark:text-cyan-305 bg-blue-50 dark:bg-blue-900/40 border border-blue-200/30 mb-4">
-            <span>Une Question ?</span>
+            <span>{t("faq.title")}</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-sans leading-tight tracking-tight text-slate-900 dark:text-white">
-            Foire Aux Questions
+            {t("faq.subtitle")}
           </h2>
           
           <p className="mt-4 text-base md:text-lg text-slate-600 dark:text-slate-400">
-            Retrouvez toutes les réponses aux interrogations les plus fréquentes sur l'intégration, la sécurité et la flexibilité d'ATIF AI.
+            {t("faq.desc")}
           </p>
         </div>
 
         {/* Faq Rows Block */}
         <div className="rounded-3xl border border-black/5 dark:border-white/10 bg-white/20 dark:bg-white/5 p-6 sm:p-8 shadow-[0_8px_32px_rgba(31,38,135,0.03)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] backdrop-blur-xl">
-          {faqData.map((faq) => (
+          {faqData.map((faq, idx) => (
             <FaqItemRow
               key={faq.id}
-              question={faq.question}
-              answer={faq.answer}
+              question={t(`faq.q${idx + 1}`)}
+              answer={t(`faq.a${idx + 1}`)}
               isOpen={openId === faq.id}
               onToggle={() => handleToggle(faq.id)}
             />
@@ -84,15 +86,15 @@ export function FAQ() {
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold dark:text-white text-slate-900">Vous avez une autre question ?</h4>
-              <p className="text-xs text-slate-400 mt-0.5">Notre service d'assistance client est à votre disposition 24h/24.</p>
+              <h4 className="text-sm font-bold dark:text-white text-slate-900">{t("faq.cta_title")}</h4>
+              <p className="text-xs text-slate-400 mt-0.5">{t("faq.cta_desc")}</p>
             </div>
           </div>
           <a
             href="#contact"
             className="text-xs font-bold px-4 py-2.5 rounded-xl text-white bg-blue-600 dark:bg-cyan-600 shadow-md hover:shadow-lg transition-all"
           >
-            Contacter le support
+            {t("faq.cta_btn")}
           </a>
         </div>
 

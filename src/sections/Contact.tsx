@@ -5,6 +5,7 @@ import * as z from "zod";
 import { ContactFormInput } from "../types";
 import { motion, AnimatePresence } from "motion/react";
 import { Send, Loader2, CheckCircle2, ShieldCheck, Mail, Building, User } from "lucide-react";
+import { useLanguage } from "../hooks/useLanguage";
 
 const contactSchema = z.object({
   name: z.string()
@@ -20,6 +21,7 @@ const contactSchema = z.object({
 });
 
 export function Contact() {
+  const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -58,15 +60,15 @@ export function Contact() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-700 dark:text-cyan-300 bg-blue-50 dark:bg-blue-900/40 border border-blue-200/30 mb-4">
-            <span>Contactez-nous aujourd'hui</span>
+            <span>{t("contact.title")}</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-sans leading-tight tracking-tight text-slate-900 dark:text-white">
-            Prêt à propulser votre entreprise ?
+            {t("contact.subtitle")}
           </h2>
           
           <p className="mt-4 text-base md:text-lg text-slate-600 dark:text-slate-400">
-            Discutez avec nos experts ou démarrez votre essai gratuit de 14 jours. Nous vous accompagnerons à chaque étape.
+            {t("contact.desc")}
           </p>
         </div>
 
@@ -77,10 +79,10 @@ export function Contact() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-black font-sans text-slate-900 dark:text-white tracking-tight">
-                  Pourquoi nous contacter ?
+                  {t("contact.why_title")}
                 </h3>
                 <p className="mt-2 text-xs md:text-sm text-slate-500 dark:text-slate-400 font-normal">
-                  Nous répondons généralement en moins de 15 minutes pendant les heures ouvrables.
+                  {t("contact.why_desc")}
                 </p>
               </div>
 
@@ -91,8 +93,8 @@ export function Contact() {
                     <CheckCircle2 className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold dark:text-white text-slate-900">Parcours sur mesure</h4>
-                    <p className="text-xs text-slate-400 mt-1">Démonstration personnalisée adaptée à votre secteur d'activité par un chef de produit ERP.</p>
+                    <h4 className="text-sm font-bold dark:text-white text-slate-900">{t("contact.promise1_title")}</h4>
+                    <p className="text-xs text-slate-400 mt-1">{t("contact.promise1_desc")}</p>
                   </div>
                 </div>
 
@@ -101,8 +103,8 @@ export function Contact() {
                     <ShieldCheck className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold dark:text-white text-slate-900">Souveraineté des données</h4>
-                    <p className="text-xs text-slate-400 mt-1">Garantie stricte de confidentialité. Aucune donnée d'entreprise n'est partagée ou revendue.</p>
+                    <h4 className="text-sm font-bold dark:text-white text-slate-900">{t("contact.promise2_title")}</h4>
+                    <p className="text-xs text-slate-400 mt-1">{t("contact.promise2_desc")}</p>
                   </div>
                 </div>
 
@@ -111,8 +113,8 @@ export function Contact() {
                     <User className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold dark:text-white text-slate-900">Support en français 24/7</h4>
-                    <p className="text-xs text-slate-400 mt-1">Equipes d'ingénieurs basées en France à votre service pour vos intégrations logistiques complexes.</p>
+                    <h4 className="text-sm font-bold dark:text-white text-slate-900">{t("contact.promise3_title")}</h4>
+                    <p className="text-xs text-slate-400 mt-1">{t("contact.promise3_desc")}</p>
                   </div>
                 </div>
               </div>
@@ -121,13 +123,13 @@ export function Contact() {
             {/* Quick direct contact links */}
             <div className="pt-8 border-t border-slate-100 dark:border-slate-800 mt-8 text-xs text-slate-400 font-sans space-y-2">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-700 dark:text-slate-300">Adresse :</span> 14 Rue de la Paix, 75002 Paris, France
+                <span className="font-semibold text-slate-700 dark:text-slate-300">{t("contact.address_label")}</span> {t("contact.address")}
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-700 dark:text-slate-300">E-mail :</span> contact@atif.ai
+                <span className="font-semibold text-slate-700 dark:text-slate-300">{t("contact.email_label")}</span> contact@atif.ai
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-700 dark:text-slate-300">Support :</span> support@atif.ai
+                <span className="font-semibold text-slate-700 dark:text-slate-300">{t("contact.support_label")}</span> support@atif.ai
               </div>
             </div>
           </div>
@@ -147,7 +149,7 @@ export function Contact() {
                   {/* Name field */}
                   <div>
                     <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                      Nom complet <span className="text-rose-500">*</span>
+                      {t("contact.form.name")} <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -175,7 +177,7 @@ export function Contact() {
                   {/* Email field */}
                   <div>
                     <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                      Adresse e-mail <span className="text-rose-500">*</span>
+                      {t("contact.form.email")} <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -203,7 +205,7 @@ export function Contact() {
                   {/* Company field */}
                   <div>
                     <label htmlFor="company" className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                      Nom de votre Société <span className="text-rose-500">*</span>
+                      {t("contact.form.company")} <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -231,7 +233,7 @@ export function Contact() {
                   {/* Message field */}
                   <div>
                     <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                      Votre Message <span className="text-rose-500">*</span>
+                      {t("contact.form.msg")} <span className="text-rose-500">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -261,18 +263,18 @@ export function Contact() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Envoi en cours...</span>
+                        <span>{t("contact.form.sending")}</span>
                       </>
                     ) : (
                       <>
                         <Send className="h-4 w-4" />
-                        <span>Envoyer ma demande</span>
+                        <span>{t("contact.form.send")}</span>
                       </>
                     )}
                   </button>
 
                   <p className="text-center text-[11px] text-slate-500 dark:text-slate-500 font-normal leading-normal">
-                    En envoyant ce formulaire, vous acceptez notre politique de gestion des données personnelles RGPD conforme et sécurisée.
+                    {t("contact.form.gdpr")}
                   </p>
                 </motion.form>
               ) : (
@@ -291,10 +293,10 @@ export function Contact() {
 
                   <div>
                     <h3 className="text-2xl font-black font-sans text-slate-900 dark:text-white tracking-tight">
-                      Demande bien transmise !
+                      {t("contact.success_title")}
                     </h3>
                     <p className="mt-3 text-sm md:text-base text-slate-500 dark:text-slate-400 font-normal max-w-md mx-auto leading-relaxed">
-                      Merci pour votre confiance. Un expert de l'équipe <span className="font-semibold text-blue-600 dark:text-cyan-405">ATIF AI Business</span> examine votre demande et vous recontactera sous peu par e-mail.
+                      {t("contact.success_desc")}
                     </p>
                   </div>
 
@@ -302,7 +304,7 @@ export function Contact() {
                     onClick={() => setIsSuccess(false)}
                     className="px-6 py-3 text-xs font-bold rounded-xl text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
                   >
-                    Envoyer un autre message
+                    {t("contact.form.send_another")}
                   </button>
                 </motion.div>
               )}

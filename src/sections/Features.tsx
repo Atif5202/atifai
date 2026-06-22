@@ -1,8 +1,10 @@
 import { featuresData } from "../data/mockData";
 import { DynamicIcon } from "../components/DynamicIcon";
 import { motion } from "motion/react";
+import { useLanguage } from "../hooks/useLanguage";
 
 export function Features() {
+  const { t } = useLanguage();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -44,7 +46,7 @@ export function Features() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-700 dark:text-cyan-300 bg-blue-50 dark:bg-blue-900/40 border border-blue-200/30 mb-4"
           >
-            <span>Fonctionnalités Clés</span>
+            <span>{t("features.title")}</span>
           </motion.div>
           
           <motion.h2
@@ -54,7 +56,7 @@ export function Features() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-black font-sans leading-tight tracking-tight text-slate-900 dark:text-white"
           >
-            Une puissance inédite sous le capot
+            {t("features.subtitle")}
           </motion.h2>
           
           <motion.p
@@ -64,7 +66,7 @@ export function Features() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-base md:text-lg text-slate-600 dark:text-slate-400 font-normal"
           >
-            Découvrez comment nos modules intelligents automatisent l'ensemble de vos transactions et propulsent l'activité de votre entreprise au niveau supérieur.
+            {t("features.desc")}
           </motion.p>
         </div>
 
@@ -96,17 +98,17 @@ export function Features() {
 
               {/* Title */}
               <h3 className="mt-6 text-xl font-bold font-sans text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-cyan-300 transition-colors duration-200">
-                {feature.title}
+                {t(`feature.${feature.id}.title`)}
               </h3>
 
               {/* Description */}
               <p className="mt-4 text-sm md:text-base text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
-                {feature.description}
+                {t(`feature.${feature.id}.desc`)}
               </p>
               
               {/* Hover bottom chevron hint */}
               <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0 font-sans">
-                Explorer le module <span>&rarr;</span>
+                {t("features.explore")} <span>&rarr;</span>
               </div>
             </motion.div>
           ))}

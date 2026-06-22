@@ -1,7 +1,9 @@
 import React from "react";
 import { Linkedin, Twitter, Github, Globe, Phone, MapPin, Mail } from "lucide-react";
+import { useLanguage } from "../hooks/useLanguage";
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -14,42 +16,42 @@ export function Footer() {
 
   const footerLinksModel = [
     {
-      title: "Produit",
+      title: "footer.col1",
       items: [
-        { name: "Gestion de Stock", href: "#features" },
-        { name: "Gestion des Ventes", href: "#features" },
-        { name: "Comptabilité", href: "#features" },
-        { name: "Intelligence Artificielle", href: "#features" },
-        { name: "Tarifs et plans", href: "#pricing" }
+        { nameKey: "footer.link.stock", href: "#features" },
+        { nameKey: "footer.link.sales", href: "#features" },
+        { nameKey: "footer.link.accounting", href: "#features" },
+        { nameKey: "footer.link.ai", href: "#features" },
+        { nameKey: "footer.link.plans", href: "#pricing" }
       ]
     },
     {
-      title: "Entreprise",
+      title: "footer.col2",
       items: [
-        { name: "À propos d'ATIF", href: "#why-choose-us" },
-        { name: "Pourquoi nous", href: "#why-choose-us" },
-        { name: "Démo interactive", href: "#demo" },
-        { name: "Témoignages clients", href: "#testimonials" },
-        { name: "Recrutement", href: "#contact" }
+        { nameKey: "footer.link.about", href: "#why-choose-us" },
+        { nameKey: "footer.link.why", href: "#why-choose-us" },
+        { nameKey: "footer.link.demo", href: "#demo" },
+        { nameKey: "footer.link.testimonials", href: "#testimonials" },
+        { nameKey: "footer.link.jobs", href: "#contact" }
       ]
     },
     {
-      title: "Ressources",
+      title: "footer.col3",
       items: [
-        { name: "Documentation API", href: "#demo" },
-        { name: "Blog technologie", href: "#faq" },
-        { name: "FAQ de support", href: "#faq" },
-        { name: "État des services", href: "#demo" },
-        { name: "Contactez-nous", href: "#contact" }
+        { nameKey: "footer.link.api", href: "#demo" },
+        { nameKey: "footer.link.blog", href: "#faq" },
+        { nameKey: "footer.link.support", href: "#faq" },
+        { nameKey: "footer.link.status", href: "#demo" },
+        { nameKey: "footer.link.contact", href: "#contact" }
       ]
     },
     {
-      title: "Légal",
+      title: "footer.col4",
       items: [
-        { name: "Conditions de Service", href: "#pricing" },
-        { name: "Politique RGPD", href: "#pricing" },
-        { name: "Sécurité & Cookies", href: "#pricing" },
-        { name: "Mentions Légales", href: "#pricing" }
+        { nameKey: "footer.link.terms", href: "#pricing" },
+        { nameKey: "footer.link.gdpr", href: "#pricing" },
+        { nameKey: "footer.link.cookies", href: "#pricing" },
+        { nameKey: "footer.link.legal", href: "#pricing" }
       ]
     }
   ];
@@ -72,7 +74,7 @@ export function Footer() {
             </a>
 
             <p className="text-xs md:text-sm font-normal leading-relaxed text-slate-500 dark:text-slate-400">
-              L'ERP intelligent de nouvelle génération pour piloter l'ensemble de votre trésorerie, vos stocks, vos catalogues et vos points de vente en temps réel de manière souveraine.
+              {t("footer.desc")}
             </p>
 
             {/* Social channels anchors */}
@@ -105,16 +107,16 @@ export function Footer() {
           {footerLinksModel.map((column) => (
             <div key={column.title} className="space-y-4">
               <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-slate-900 dark:text-white font-sans">
-                {column.title}
+                {t(column.title)}
               </h4>
               <ul className="space-y-3.5">
                 {column.items.map((item) => (
-                  <li key={item.name}>
+                  <li key={item.nameKey}>
                     <a
                       href={item.href}
                       className="text-xs sm:text-sm font-normal text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-405 transition-colors"
                     >
-                      {item.name}
+                      {t(item.nameKey)}
                     </a>
                   </li>
                 ))}
@@ -129,17 +131,17 @@ export function Footer() {
           
           <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
             <span>
-              &copy; {currentYear} ATIF AI Business. Tous droits réservés.
+              &copy; {currentYear} ATIF AI Business. {t("footer.rights")}
             </span>
             <span className="hidden sm:inline text-slate-300 dark:text-slate-800">|</span>
             <span>
-              Créé à Antananarivo, Madagascar
+              {t("footer.hosted")}
             </span>
           </div>
 
           <div className="flex items-center gap-1 font-sans font-medium text-slate-400 dark:text-slate-500">
             <Globe className="h-4 w-4" />
-            <span>Antananarivo (Français)</span>
+            <span>{t("footer.lang")}</span>
           </div>
 
         </div>
