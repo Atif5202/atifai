@@ -133,13 +133,13 @@ export function Footer() {
             </span>
             <span className="hidden sm:inline text-slate-300 dark:text-slate-800">|</span>
             <span>
-              Hébergé en France (ISO 27001) • Conforme RGPD Européen
+              Créé à Antananarivo, Madagascar
             </span>
           </div>
 
           <div className="flex items-center gap-1 font-sans font-medium text-slate-400 dark:text-slate-500">
             <Globe className="h-4 w-4" />
-            <span>France (Français)</span>
+            <span>Antananarivo (Français)</span>
           </div>
 
         </div>
