@@ -1,5 +1,5 @@
 import React from "react";
-import { Linkedin, Twitter, Github, Globe, Phone, MapPin, Mail } from "lucide-react";
+import { Linkedin, Twitter, Github, Globe } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 
 export function Footer() {
@@ -80,21 +80,27 @@ export function Footer() {
             {/* Social channels anchors */}
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://twitter.com/atif_ai"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-500 hover:text-blue-650 dark:hover:text-cyan-405 transition-colors cursor-pointer"
                 aria-label="Profil Twitter"
               >
                 <Twitter className="h-4.5 w-4.5" />
               </a>
               <a
-                href="#"
+                href="https://linkedin.com/company/atif-ai"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-500 hover:text-blue-650 dark:hover:text-cyan-405 transition-colors cursor-pointer"
                 aria-label="Profil LinkedIn"
               >
                 <Linkedin className="h-4.5 w-4.5" />
               </a>
               <a
-                href="#"
+                href="https://github.com/atif-ai"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-500 hover:text-blue-650 dark:hover:text-cyan-405 transition-colors cursor-pointer"
                 aria-label="Profil Github"
               >

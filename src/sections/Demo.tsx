@@ -647,7 +647,7 @@ export function Demo() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-1">
             <div>
               <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400 dark:text-slate-500 block mb-1">
-                Module ACTIF
+                {t("demo.module_active")}
               </span>
               <h3 className="text-xl font-bold dark:text-white flex items-center gap-2">
                 {t(`demo.label_${labelKeyMap[activeTab]}_title`)}
@@ -665,11 +665,11 @@ export function Demo() {
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 cursor-pointer transition-colors"
               >
                 <RefreshCw className="h-3 w-3" />
-                <span>Rafraîchir les flux</span>
+                <span>{t("demo.refresh")}</span>
               </button>
               <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-medium">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Console active</span>
+                <span>{t("demo.console_active")}</span>
               </div>
             </div>
           </div>
@@ -708,18 +708,18 @@ export function Demo() {
                 <div className="absolute top-0 right-0 flex items-center gap-4 text-[10px] font-semibold text-slate-400 z-10 bg-white/40 dark:bg-[#111111]/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
                   <span className="flex items-center gap-1">
                     <span className="h-2 w-2 rounded-full bg-blue-600" />
-                    Valeur Réelle
+                    {t("demo.chart.real_value")}
                   </span>
                   {activeTab === "ia" && (
                     <span className="flex items-center gap-1">
                       <span className="h-2 w-2 rounded-full bg-cyan-400" />
-                      Prediction IA
+                      {t("demo.chart.ia_predict")}
                     </span>
                   )}
                   {activeTab === "comptabilite" && (
                       <span className="flex items-center gap-1">
                       <span className="h-2 w-2 rounded-full bg-rose-500" />
-                      Dépenses fiscales
+                      {t("demo.chart.tax_expense")}
                     </span>
                   )}
                 </div>
@@ -923,7 +923,7 @@ export function Demo() {
                           : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
                       }`}
                     >
-                      Saisie Live
+                      {t("demo.mode_saisie")}
                     </button>
                     <button
                       onClick={() => setSidebarMode("feed")}
@@ -933,7 +933,7 @@ export function Demo() {
                           : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
                       }`}
                     >
-                      {activeTab === "ia" ? "Prévisions IA" : "Activité"}
+                      {activeTab === "ia" ? t("demo.mode_forecast") : t("demo.mode_activity")}
                     </button>
                   </div>
                 </div>
@@ -944,10 +944,10 @@ export function Demo() {
                     {activeTab === "stock" && (
                       <div className="space-y-3.5">
                         <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
-                          Insérez vos propres données d'inventaire à Madagascar. La valeur comptable de votre stock s'ajustera instantanément.
+                          {t("demo.form_stock_desc")}
                         </p>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Nom de l'article</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_stock_name")}</label>
                           <input 
                             type="text"
                             placeholder="Ex: Vanille Noire de Sambava, Chocolat de Nosy Be..."
@@ -957,7 +957,7 @@ export function Demo() {
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Prix de l'article (Ar)</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_stock_price")}</label>
                           <input 
                             type="number"
                             min="1000"
@@ -969,7 +969,7 @@ export function Demo() {
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Quantité (pcs)</label>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_stock_qty")}</label>
                             <input 
                               type="number"
                               min="1"
@@ -979,7 +979,7 @@ export function Demo() {
                             />
                           </div>
                           <div>
-                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Statut de stock</label>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_stock_status")}</label>
                             <select
                               value={stockStatus}
                               onChange={(e) => setStockStatus(e.target.value)}
@@ -995,7 +995,7 @@ export function Demo() {
                           onClick={handleAddStock}
                           className="w-full mt-2 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold font-sans cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
                         >
-                          Ajouter au Stock
+                          {t("demo.form_stock_btn")}
                         </button>
                       </div>
                     )}
@@ -1003,10 +1003,10 @@ export function Demo() {
                     {activeTab === "venta" && (
                       <div className="space-y-3.5">
                         <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
-                          Enregistrez une vraie transaction en direct. Les indicateurs de Chiffre d'Affaires et panier moyen recalculeront l'intégralité du graphique en Ariary !
+                          {t("demo.form_sale_desc")}
                         </p>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Nom du client</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_sale_customer")}</label>
                           <input 
                             type="text"
                             placeholder="Ex: Ranaivo de Tamatave, SARL Madacoop..."
@@ -1016,7 +1016,7 @@ export function Demo() {
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Produit / Service vendu</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_sale_product")}</label>
                           <input 
                             type="text"
                             placeholder="Ex: Café Robusta 25kg, Épices d'exportation..."
@@ -1026,7 +1026,7 @@ export function Demo() {
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Montant de la vente (Ar)</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_sale_amount")}</label>
                           <input 
                             type="number"
                             min="1000"
@@ -1040,7 +1040,7 @@ export function Demo() {
                           onClick={handleAddSale}
                           className="w-full mt-2 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold font-sans cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
                         >
-                          Enregistrer la Vente
+                          {t("demo.form_sale_btn")}
                         </button>
                       </div>
                     )}
@@ -1048,10 +1048,10 @@ export function Demo() {
                     {activeTab === "comptabilite" && (
                       <div className="space-y-3.5">
                         <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
-                          Ajustez les écritures comptables réelles du grand livre pour voir la Trésorerie s'adapter dynamiquement sur l'aire des graphiques de recettes.
+                          {t("demo.form_acct_desc")}
                         </p>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Libellé du flux financier</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_acct_label")}</label>
                           <input 
                             type="text"
                             placeholder="Ex: Fret maritime Mahajanga, Salaires Antsirabe..."
@@ -1062,7 +1062,7 @@ export function Demo() {
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Type de flux</label>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_acct_type")}</label>
                             <div className="flex gap-1">
                               <button
                                 onClick={() => setCompType("Revenu")}
@@ -1072,7 +1072,7 @@ export function Demo() {
                                     : "border-black/5 dark:border-white/5 text-slate-400"
                                 }`}
                               >
-                                Revenu
+                                {t("demo.add_comp_revenu")}
                               </button>
                               <button
                                 onClick={() => setCompType("Dépense")}
@@ -1082,12 +1082,12 @@ export function Demo() {
                                     : "border-black/5 dark:border-white/5 text-slate-400"
                                 }`}
                               >
-                                Dépense
+                                {t("demo.add_comp_depense")}
                               </button>
                             </div>
                           </div>
                           <div>
-                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Montant (Ar)</label>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_acct_amount")}</label>
                             <input 
                               type="number"
                               min="500"
@@ -1102,7 +1102,7 @@ export function Demo() {
                           onClick={handleAddAcct}
                           className="w-full mt-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold font-sans cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
                         >
-                          Enregistrer l'Opération
+                          {t("demo.form_acct_btn")}
                         </button>
                       </div>
                     )}
@@ -1110,10 +1110,10 @@ export function Demo() {
                     {activeTab === "ia" && (
                       <div className="space-y-3.5">
                         <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
-                          Saisissez une invite de situation commerciale ou de logistique. L'algorithme prédictif ATIF simulera l'évolution en temps réel sur les mois projetés.
+                          {t("demo.form_ia_desc")}
                         </p>
                         <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Sujet d'analyse des flux</label>
+                          <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t("demo.form_ia_label")}</label>
                           <textarea 
                             rows={3}
                             placeholder="Ex: Analyse d'impact climatique sur la récolte de girofle ou prévision d'achat d'emballages carton..."
@@ -1127,7 +1127,7 @@ export function Demo() {
                           className="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-500 text-slate-950 text-xs font-bold font-sans cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-1.5 shadow-sm"
                         >
                           <Sparkles className="h-3.5 w-3.5" />
-                          Lancer la Simulation IA
+                          {t("demo.form_ia_btn")}
                         </button>
                       </div>
                     )}
@@ -1166,7 +1166,7 @@ export function Demo() {
                                 ? "text-rose-500 bg-rose-500/10" 
                                 : "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
                             }`}>
-                              {item.status || (item.type === "Dépense" ? "Débit " : "Ok ✓")}
+                              {item.status || (item.type === "Dépense" ? t("demo.status_debit") : t("demo.status_ok"))}
                             </span>
                           </div>
                         </div>
@@ -1197,7 +1197,7 @@ export function Demo() {
                 className="mt-6 w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-900 hover:-translate-y-0.5 cursor-pointer transition-all duration-200 shadow-xs"
               >
                 <Cpu className={`h-4 w-4 text-blue-600 dark:text-cyan-400 ${isRefreshing ? "animate-spin" : ""}`} />
-                <span>{isRefreshing ? "Simulation en cours..." : "Simuler variations de flux"}</span>
+                <span>{isRefreshing ? t("demo.refreshing") : t("demo.simulate")}</span>
               </button>
 
             </div>

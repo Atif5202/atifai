@@ -22,11 +22,13 @@ export function Testimonials() {
   const slideNext = () => {
     setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialsData.length);
+    startAutoplay();
   };
 
   const slidePrev = () => {
     setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonialsData.length) % testimonialsData.length);
+    startAutoplay();
   };
 
   const startAutoplay = () => {

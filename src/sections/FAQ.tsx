@@ -4,6 +4,16 @@ import { ChevronDown, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../hooks/useLanguage";
 
+const handleScrollToContact = (e: React.MouseEvent) => {
+  e.preventDefault();
+  const target = document.querySelector("#contact");
+  if (target) {
+    const offset = 80;
+    const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: pos, behavior: "smooth" });
+  }
+};
+
 function FaqItemRow({ question, answer, isOpen, onToggle }: { question: string; answer: string; isOpen: boolean; onToggle: () => void; key?: string }) {
   return (
     <div className="border-b border-slate-200/60 dark:border-slate-800 last:border-none py-5">
@@ -90,12 +100,12 @@ export function FAQ() {
               <p className="text-xs text-slate-400 mt-0.5">{t("faq.cta_desc")}</p>
             </div>
           </div>
-          <a
-            href="#contact"
-            className="text-xs font-bold px-4 py-2.5 rounded-xl text-white bg-blue-600 dark:bg-cyan-600 shadow-md hover:shadow-lg transition-all"
+          <button
+            onClick={handleScrollToContact}
+            className="text-xs font-bold px-4 py-2.5 rounded-xl text-white bg-blue-600 dark:bg-cyan-600 shadow-md hover:shadow-lg transition-all cursor-pointer"
           >
             {t("faq.cta_btn")}
-          </a>
+          </button>
         </div>
 
       </div>

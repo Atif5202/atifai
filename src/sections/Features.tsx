@@ -1,3 +1,4 @@
+import React from "react";
 import { featuresData } from "../data/mockData";
 import { DynamicIcon } from "../components/DynamicIcon";
 import { motion } from "motion/react";
@@ -5,6 +6,16 @@ import { useLanguage } from "../hooks/useLanguage";
 
 export function Features() {
   const { t } = useLanguage();
+
+  const handleScrollToDemo = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const target = document.querySelector("#demo");
+    if (target) {
+      const offset = 80;
+      const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: pos, behavior: "smooth" });
+    }
+  };
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -107,9 +118,12 @@ export function Features() {
               </p>
               
               {/* Hover bottom chevron hint */}
-              <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0 font-sans">
+              <button
+                onClick={handleScrollToDemo}
+                className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0 font-sans cursor-pointer"
+              >
                 {t("features.explore")} <span>&rarr;</span>
-              </div>
+              </button>
             </motion.div>
           ))}
         </motion.div>

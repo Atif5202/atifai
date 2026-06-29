@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ThemeToggle } from "../components/ThemeToggle";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../hooks/useLanguage";
 
@@ -22,12 +22,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { name: t("nav.features"), href: "#features" },
     { name: t("nav.demo"), href: "#demo" },
     { name: t("nav.pricing"), href: "#pricing" },
-    { name: t("nav.faq"), href: "#faq" }
-  ];
+    { name: t("nav.faq"), href: "#faq" },
+    { name: t("nav.contact"), href: "#contact" }
+  ], [t]);
 
   const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();

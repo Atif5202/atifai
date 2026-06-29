@@ -42,11 +42,24 @@ export function Contact() {
 
   const onSubmit = async (data: ContactFormInput) => {
     setIsSubmitting(true);
-    // Simulate API request to backend
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    reset();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || "Erreur lors de l'envoi");
+      }
+      setIsSuccess(true);
+      reset();
+    } catch (err) {
+      console.error("Erreur contact:", err);
+      alert("Une erreur est survenue. Veuillez réessayer ou nous contacter par email.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

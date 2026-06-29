@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "../components/ErrorBoundary";
 import { Hero } from "../sections/Hero";
 import { Stats } from "../sections/Stats";
 import { Features } from "../sections/Features";
@@ -11,32 +12,15 @@ import { Contact } from "../sections/Contact";
 export function LandingPage() {
   return (
     <>
-      {/* Front Hero above the fold mockup */}
-      <Hero />
-
-      {/* Dynamic count-up counter widget bar */}
-      <Stats />
-
-      {/* 6 Grid features guide details cards */}
-      <Features />
-
-      {/* Stateful Demo Mini application panel */}
-      <Demo />
-
-      {/* Why Choose Us details grid */}
-      <WhyChooseUs />
-
-      {/* Feedback auto-carousel loops */}
-      <Testimonials />
-
-      {/* Tiers catalog Pricing tables */}
-      <Pricing />
-
-      {/* Expandable question-solutions Accordion lists */}
-      <FAQ />
-
-      {/* Validated submission Contact Form */}
-      <Contact />
+      <ErrorBoundary><Hero /></ErrorBoundary>
+      <ErrorBoundary><Stats /></ErrorBoundary>
+      <ErrorBoundary><Features /></ErrorBoundary>
+      <ErrorBoundary><Demo /></ErrorBoundary>
+      <ErrorBoundary><WhyChooseUs /></ErrorBoundary>
+      <ErrorBoundary><Testimonials /></ErrorBoundary>
+      <ErrorBoundary><Pricing /></ErrorBoundary>
+      <ErrorBoundary><FAQ /></ErrorBoundary>
+      <ErrorBoundary><Contact /></ErrorBoundary>
     </>
   );
 }
